@@ -1,7 +1,13 @@
 package factory.tank;
 
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
 /**
- * Décrivez votre classe Tank ici.
+ * Décrivez votre classe military.factory.Tank ici.
  *
  * @author (votre nom)
  * @version (un numéro de version ou une date)
@@ -9,46 +15,88 @@ package factory.tank;
 public class Tank
 {
 
+    private static int nbTanks;
+    private int id;
     private int nbObus = 0;
     private int nbObusMax = 10;
     
     private Moteur moteur;
+
+    private Set<Cible> cibles;
     
     /**
-     * Constructeur d'objets de classe Tank
+     * Constructeur d'objets de classe military.factory.Tank
      */
     public Tank()
     {
         // initialisation des variables d'instance
         this.nbObus = 0;
         this.nbObusMax = 10;
+        this.nbTanks++;
+        this.id = nbTanks;
+        cibles = new HashSet<>();
     }
     
     int getNbObus()
     {
         return this.nbObus;
     }
-    
-    int getNbObusMax()
+
+    public int getNbObusMax()
     {
         return this.nbObusMax;
     }
-    
-    int chargerObus()
+
+    public int chargerObus()
     {
         this.nbObus += (this.nbObus < nbObusMax ? 1 : 0); 
         return this.nbObus;
     }
-    
-   
-    int rouler()
+
+
+    public int rouler()
     {
         return moteur.allumerMoteur();
     }
-    
-    void setMoteur(Moteur moteur)
+
+    public void setMoteur(Moteur moteur)
     {
         this.moteur = moteur;
     }
-    
+
+    public void addCible(Cible cible){
+        this.cibles.add(cible);
+        cible.setTank(this);
+    }
+
+    public boolean destroyCible(Cible cible){
+        return destroyCible(cible.getNom());
+    }
+
+    public boolean destroyCible(String nomCible){
+        for(Cible c : cibles){
+            if(c.getNom().equals(nomCible)){
+                c.setTouche(true);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Set<Cible> getCibles() {
+        return Collections.unmodifiableSet(cibles);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Tank)) return false;
+        Tank tank = (Tank) o;
+        return id == tank.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

@@ -1,10 +1,14 @@
 package factory.tank;
 
+import static org.junit.Assert.*;
+
+
+import factory.tank.Cible;
+import factory.tank.Tank;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Classe-test Test.TankTest.
@@ -30,25 +34,15 @@ import static org.junit.Assert.*;
  * qui réalise les engagements, et suivi d'un appel à tearDown(), qui les
  * détruit.
  */
-public class TankTest
-{
+public class CibleTest {
+
     private Tank tank1;
-    private Moteur moteur1;
     private Cible cible1;
-    private Cible cible2;
-
-    // Définissez ici les variables d'instance nécessaires à vos engagements;
-    // Vous pouvez également les saisir automatiquement du présentoir
-    // à l'aide du menu contextuel "Présentoir --> Engagements".
-    // Notez cependant que ce dernier ne peut saisir les objets primitifs
-    // du présentoir (les objets sans constructeur, comme int, float, etc.).
-
-
 
     /**
      * Constructeur de la classe-test Test.TankTest
      */
-    public TankTest()
+    public CibleTest()
     {
     }
 
@@ -61,10 +55,7 @@ public class TankTest
     public void setUp() // throws java.lang.Exception
     {
         tank1 = new Tank();
-        moteur1 = new Moteur();
         cible1 = new Cible("Voiture");
-        cible2 = new Cible("Maison");
-        tank1.setMoteur(moteur1);
     }
 
     /**
@@ -79,40 +70,49 @@ public class TankTest
     }
 
     @Test
-    public void testChargerObus()
+    public void testSetCibleDe()
     {
-        Tank tank2 = new Tank();
-        assertEquals(1, tank2.chargerObus());
-        assertEquals(2, tank2.chargerObus());
-
-    }
-
-    @Test
-    public void testRouler()
-    {   
-        //tank rouler allume le moteur. 
-        assertEquals(1, tank1.rouler());
-    }
-
-    @Test
-    public void testAddCible(){
-        Cible cible3 = new Cible("Arbre");
-        //
-        tank1.addCible(cible1);
-        tank1.addCible(cible2);
-        //verfication ajout cible
+        cible1.setTank(tank1);
+        //verification de l'égalité
+        assertEquals(tank1,cible1.getTank());
         assertTrue(tank1.getCibles().contains(cible1));
-        assertTrue(tank1.getCibles().contains(cible2));
-
-        //verification de cible à tank
-        assertTrue(cible1.getTank().equals(tank1));
-        assertTrue(cible2.getTank().equals(tank1));
-
-        //verfication non ajout
-        assertFalse(tank1.getCibles().contains(cible3));
     }
 
+    @Test
+    public void testSetNom() {
+        cible1.setNom("Avion");
+        assertEquals(cible1.getNom(),"Avion");
+
+    }
+
+    @Test
+    public void testSetTank() {
+        cible1.setTank(tank1);
+        Cible cible2 = new Cible("Avion");
+        cible2.setTank(tank1);
+        assertEquals(cible2.getTank(),cible1.getTank());
+    }
+
+    @Test
+    public void testSetTouche() {
+        cible1.setTouche(true);
+        assertTrue(cible1.isTouche());
+    }
+
+    @Test
+    public void testGetNom() {
+        assertEquals(cible1.getNom(),"Voiture");
+    }
+
+    @Test
+    public void testGetTank() {
+        cible1.setTank(tank1);
+        assertEquals(cible1.getTank(),tank1);
+    }
+
+    @Test
+    public void testisTouche() {
+        assertFalse(false);
+    }
 
 }
-
-
