@@ -1,3 +1,4 @@
+@Test4
 Feature: US_004 Destroy Cible
           Le tank tire sur une cible désignée et la détruit
 
