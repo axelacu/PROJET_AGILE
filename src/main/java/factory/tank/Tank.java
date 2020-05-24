@@ -87,10 +87,13 @@ public class Tank
     }
 
     public boolean destroyCible(String nomCible){
-        for(Cible c : cibles){
-            if(c.getNom().equals(nomCible)){
-                c.setTouche(true);
-                return true;
+        if(this.getNbObus()>0){
+            for(Cible c : cibles){
+                if(c.getNom().equals(nomCible)){
+                    c.setTouche(true);
+                    this.nbObus--;
+                    return true;
+                }
             }
         }
         return false;
