@@ -64,9 +64,13 @@ public class Tank
         this.moteur = moteur;
     }
 
-    public void addCible(Cible cible){
-        this.cibles.add(cible);
-        cible.setTank(this);
+    public boolean addCible(Cible cible){
+
+        boolean res = this.cibles.add(cible);
+
+        if(res) cible.setTank(this);
+
+        return res;
     }
 
     public boolean destroyCible(Cible cible){
