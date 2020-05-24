@@ -36,6 +36,15 @@ public class Tank
         this.id = nbTanks;
         cibles = new HashSet<>();
     }
+
+    public Tank(Moteur moteur){
+        this.nbObus = 0;
+        this.nbObusMax = 10;
+        this.nbTanks++;
+        this.id = nbTanks;
+        cibles = new HashSet<>();
+        this.moteur = moteur;
+    }
     
     int getNbObus()
     {

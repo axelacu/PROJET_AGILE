@@ -48,4 +48,11 @@ public class Cible {
     public int hashCode() {
         return Objects.hash(nom);
     }
+
+    @Override
+    public String toString() {
+        return "Cible{" +
+                "nom='" + nom + '\'' +
+                '}';
+    }
 }
